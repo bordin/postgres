@@ -33,7 +33,7 @@ ENV PG_VERSION 9.5.5-1.pgdg80+1
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
-	&& apt-get install -y postgresql-common \
+	&& apt-get install -y postgresql-common autopostgresqlbackup \
 	&& sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
 	&& apt-get install -y \
 		postgresql-$PG_MAJOR=$PG_VERSION \
@@ -50,6 +50,7 @@ RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
 ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
+VOLUME /var/lib/autopostgresqlbackup
 
 COPY docker-entrypoint.sh /
 
