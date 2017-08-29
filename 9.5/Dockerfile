@@ -30,6 +30,12 @@ RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys B97B0AFCAA1A4
 ENV PG_MAJOR 9.5
 ENV PG_VERSION 9.5.5-1.pgdg80+1
 
+##set timezone
+ENV TZ=Asia/Bangkok
+#RUN echo -e "#!/bin/sh\nntpd -d -q -n -p pool.ntp.org" > /etc/cron.hourly/clocksync
+#RUN chmod +x /etc/periodic/hourly/clocksync
+
+
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
