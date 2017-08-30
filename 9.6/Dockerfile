@@ -50,9 +50,9 @@ RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
 ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
-VOLUME /var/lib/autopostgresqlbackup
+VOLUME /var/backups/postgres
 COPY docker-entrypoint.sh /
-
+COPY autopgsqlbackup.sh /usr/sbin/autopgsqlbackup
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 5432
